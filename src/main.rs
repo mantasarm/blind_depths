@@ -125,12 +125,12 @@ fn play_music(index: usize, app: &mut App, sound_system: &mut SoundSystem) {
     sound_system.sound[index] = Some(sound);
 }
 
-// fn is_playing(index: usize, app: &mut App, sound_system: &mut SoundSystem) -> bool {
-//     match &sound_system.sound[index] {
-//         Some(s) => !app.audio.is_stopped(s),
-//         None => false,
-//     }
-// }
+fn is_playing(index: usize, app: &mut App, sound_system: &mut SoundSystem) -> bool {
+    match &sound_system.sound[index] {
+        Some(s) => !app.audio.is_stopped(s),
+        None => false,
+    }
+}
 
 #[notan_main]
 fn main() -> Result<(), String> {
@@ -204,7 +204,7 @@ fn update(app: &mut App, state: &mut State) {
         state.music_delay += 1;
     }
 
-    if state.music_delay == 20 {
+    if state.music_delay >= 30 {
         play_music(0, app, &mut state.sound_system);
         state.music_delay = 0;
         state.music_start = false;
