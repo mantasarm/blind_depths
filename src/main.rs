@@ -379,7 +379,7 @@ fn draw(app: &mut App, gfx: &mut Graphics, state: &mut State) {
     if state.show_hint && state.show_hint_timer > 0. {
         draw.text(
             &state.font,
-            "There's some white debree left.. It must be this way",
+            "There's some white debris left.. It must be this way",
         )
         .size(40.)
         .color(Color::WHITE)
