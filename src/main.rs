@@ -418,7 +418,7 @@ fn draw(app: &mut App, gfx: &mut Graphics, state: &mut State) {
                 app.window().height() as f32 / 10.,
             );
 
-        draw.text(&state.font, "STORY:\nYou're a submarine pilot in one of the deepest parts of the ocean and your only form of navigation is echoes you send that reveal the cave wall details. Your collegue got lost in one of the most complex deep ocean cave systems. Countless have already gone missing in that cave.\nRumours say that some kind of creature lives there..\n\nFind him and bring him back.\n\n\n\n\nControls:\nUse A and D keys to turn\nUse the W key to accelarate\nUse Space to send an echo\nUse the B key to place beacons (You only have 3)\n*Beacons are useful for navigation and marking areas")
+        draw.text(&state.font, "STORY:\nYou're a submarine pilot in one of the deepest parts of the ocean and your only form of navigation is echoes you send that reveal the details of the cave walls. Your colleague got lost in one of the most complex deep ocean cave systems. Countless have already gone missing in that cave.\nRumors say that some kind of creature lives there..\n\nFind him and bring him back.\n\n\n\n\nControls:\nUse A and D keys to turn\nUse the W key to accelerate\nUse Space to send an echo\nUse the B key to place beacons (You only have 3)\n*Beacons are useful for navigation and marking areas")
             .size(22.)
             .color(Color::WHITE)
             .h_align_left()
