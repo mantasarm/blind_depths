@@ -13,6 +13,7 @@ pub struct Player {
     pub pos: Vec2,
     vel: Vec2,
     dir: f32,
+    timer: f32,
 }
 
 impl Player {
@@ -26,6 +27,7 @@ impl Player {
             pos: Vec2::new(201., 167.),
             vel: Vec2::ZERO,
             dir: 0.,
+            timer: 0.,
         }
     }
 
@@ -52,9 +54,15 @@ impl Player {
             self.dir -= app.timer.delta_f32() * 60.;
         }
 
-        if app.keyboard.was_pressed(notan::prelude::KeyCode::Space) && *scene == Scene::Game {
+        if app.keyboard.was_pressed(notan::prelude::KeyCode::Space)
+            && *scene == Scene::Game
+            && self.timer <= 0.
+        {
             send_echo(echoes, &self.pos, self.dir, Color::PURPLE);
+            self.timer = 40.
         }
+
+        self.timer -= app.timer.delta_f32() * 60.;
 
         if get_bg_color(
             bytes,
