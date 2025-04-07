@@ -112,6 +112,8 @@ struct State {
     played_random_time: i32,
     show_found_text: bool,
     found_text_timer: f32,
+    show_hint: bool,
+    show_hint_timer: f32,
 }
 
 fn play_music(index: usize, app: &mut App, sound_system: &mut SoundSystem) {
@@ -150,7 +152,7 @@ fn init(app: &mut App, gfx: &mut Graphics) -> State {
     let mut camera = Camera2D::new(0., 0., RENDER_WIDTH * 2., RENDER_HEIGHT * 2.);
     camera.set_zoom(1.);
 
-    let mut sound_system = SoundSystem::new(app);
+    let sound_system = SoundSystem::new(app);
 
     let cave_texture = gfx
         .create_texture()
@@ -192,6 +194,8 @@ fn init(app: &mut App, gfx: &mut Graphics) -> State {
         played_random_time: 0,
         show_found_text: false,
         found_text_timer: 250.,
+        show_hint: false,
+        show_hint_timer: 250.,
     }
 }
 
@@ -215,6 +219,10 @@ fn update(app: &mut App, state: &mut State) {
         }
 
         state.played_random_time = app.timer.elapsed_f32() as i32;
+    }
+
+    if state.player.pos.distance(Vec2::new(900., 1600.)) < 100. {
+        state.show_hint = true;
     }
 
     state.player.update(
@@ -366,6 +374,23 @@ fn draw(app: &mut App, gfx: &mut Graphics, state: &mut State) {
         );
 
         state.found_text_timer -= app.timer.delta_f32() * 60.;
+    }
+
+    if state.show_hint && state.show_hint_timer > 0. {
+        draw.text(
+            &state.font,
+            "There's some white debree left.. It must be this way",
+        )
+        .size(40.)
+        .color(Color::WHITE)
+        .h_align_center()
+        .v_align_middle()
+        .position(
+            app.window().width() as f32 / 2.,
+            app.window().height() as f32 / 1.1,
+        );
+
+        state.show_hint_timer -= app.timer.delta_f32() * 60.;
     }
 
     if state.scene == Scene::Start {
